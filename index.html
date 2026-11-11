@@ -1,0 +1,109 @@
+<!-- Engineered for ITz Clipster's RTS Web Game Project -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontline Command | Multiplayer RTS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Main HTML5 Game Canvas -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- Join / Deployment Modal -->
+  <div id="joinModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h1>FRONTLINE COMMAND</h1>
+      <p class="subtitle">Tactical Territory Conquest Prototype</p>
+      <div class="input-group">
+        <label for="commanderName">COMMANDER CALLSIGN</label>
+        <input
+          type="text"
+          id="commanderName"
+          maxlength="18"
+          placeholder="ITz Clipster"
+          value="ITz Clipster"
+        />
+      </div>
+      <button id="deployBtn" class="primary-btn">DEPLOY TO THEATER</button>
+      <div class="controls-hint">
+        <p><strong>Left-Click / Drag:</strong> Expand Border or Place Structure</p>
+        <p><strong>Right-Click Drag / WASD:</strong> Pan Camera</p>
+        <p><strong>Scroll Wheel:</strong> Tactical Zoom</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- In-Game HUD Overlay -->
+  <div id="hudOverlay" class="hud-container hidden">
+    <!-- Top Bar: Resources & Commander Status -->
+    <header class="top-bar">
+      <div class="commander-badge">
+        <span id="playerColorSwatch" class="color-swatch"></span>
+        <span id="hudPlayerName">Commander</span>
+      </div>
+
+      <div class="resource-Cluster">
+        <div class="resource-pill">
+          <span class="res-label">TROOPS</span>
+          <span id="hudTroops" class="res-value">0</span>
+          <span id="hudMaxTroops" class="res-sub">/ 0</span>
+        </div>
+
+        <div class="resource-pill gold">
+          <span class="res-label">GOLD</span>
+          <span id="hudGold" class="res-value">0</span>
+        </div>
+
+        <div class="resource-pill">
+          <span class="res-label">TERRITORY</span>
+          <span id="hudTerritory" class="res-value">0</span>
+        </div>
+
+        <div class="resource-pill">
+          <span class="res-label">CITIES / FORTS</span>
+          <span id="hudStructures" class="res-value">0 / 0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Right Panel: Live Theater Leaderboard -->
+    <aside class="leaderboard-panel">
+      <h3>THEATER RANKINGS</h3>
+      <ul id="leaderboardList"></ul>
+    </aside>
+
+    <!-- Bottom Tactical Build & Action Dock -->
+    <footer class="bottom-dock">
+      <button class="dock-btn active" data-mode="EXPAND" id="btnModeExpand">
+        <span class="hotkey">[1]</span>
+        <span class="btn-title">EXPAND / ATTACK</span>
+        <span class="btn-cost">Uses Troops</span>
+      </button>
+
+      <button class="dock-btn" data-mode="BUILD_CITY" id="btnModeCity">
+        <span class="hotkey">[2]</span>
+        <span class="btn-title">BUILD CITY</span>
+        <span class="btn-cost">150 Gold (+Income/Cap)</span>
+      </button>
+
+      <button class="dock-btn" data-mode="BUILD_DEFENSE" id="btnModeDefense">
+        <span class="hotkey">[3]</span>
+        <span class="btn-title">DEFENSE POST</span>
+        <span class="btn-cost">100 Gold (2x Defense Aura)</span>
+      </button>
+
+      <button class="dock-btn future-slot" disabled title="Planned Expansion Module">
+        <span class="hotkey">[4]</span>
+        <span class="btn-title">NAVAL / NUKE</span>
+        <span class="btn-cost">Locked (v2.0)</span>
+      </button>
+    </footer>
+  </div>
+
+  <!-- Socket.io Client Library (Served automatically by Node server) -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
